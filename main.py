@@ -76,11 +76,7 @@ def RunExp(args, dataset, data, Net, split):
             best_val_acc = val_acc
             best_test_acc = tmp_test_acc
             best_epoch = iter
-            # if(epoch==0):
-            # torch.save(h, f'save/{args.dataset}_adj.pt')
-            # torch.save(h, f'save/{args.dataset}_x.pt')
-            # torch.save(h, f'save/{args.dataset}_h.pt')
-            # torch.save(h, f'save/{args.dataset}_GCN_h.pt')
+            # torch.save(h, f'save/{args.dataset}.pt')
             
     return best_test_acc, best_val_acc
 
@@ -93,6 +89,8 @@ if __name__ == '__main__':
     parser.add_argument('--early_stopping', type=int, default=500)
     parser.add_argument('--hidden', type=int, default=64)
     parser.add_argument('--dropout', type=float, default=0.5)
+    parser.add_argument('--alpha', type=float, default=0.1)
+    parser.add_argument('--beta', type=float, default=0.1)
     parser.add_argument('--train_rate', type=float, default=0.5)
     parser.add_argument('--val_rate', type=float, default=0.25)
     parser.add_argument('--splits', type=int, default=1)
