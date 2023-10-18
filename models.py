@@ -17,6 +17,8 @@ class GRN(torch.nn.Module):
         super(GRN, self).__init__()
         self.dropout = args.dropout
         self.N = N
+        self.alpha = args.alpha
+        self.beta = args.beta
         self.w11=Linear(N, args.hidden)
         self.w22=Linear(dataset.num_features, args.hidden)
 
@@ -45,7 +47,7 @@ class GRN(torch.nn.Module):
         adj=self.w11(adj_)
         x=self.w22(x)
         h1=torch.mul(adj, x)
-        h1=F.sigmoid(h1)
+        h1=F.sigmoid(h1) + self.alpha*torch.mul(x, x) + self.beta*torch.mul(adj, adj)
         h=self.out(h1)
         return F.log_softmax(h, dim=1), h
     
